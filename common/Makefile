@@ -12,7 +12,8 @@ CC := g++
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) `$(SDL_PATH)/bin/sdl2-config --cflags --libs` $(CFLAGS) $(LD_FLAGS) $(OBJS) -o $@
+	$(CC) $(CFLAGS) $(LD_FLAGS) $(OBJS) -o $@
+#`$(SDL_PATH)/bin/sdl2-config --cflags --libs`
 
 $(OBJS): %.o: %.cpp
 	$(CC) -c $(CFLAGS) $< -o $@
