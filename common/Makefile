@@ -1,9 +1,10 @@
 TARGET := sdlDemo
 
-SDL_PATH := /Users/weimj/sources/SDLLearning/SDLGameDemo/libSDL_Mac/
+#SDL_PATH := /Users/weimj/sources/SDLLearning/SDLGameDemo/libSDL_Mac
 
+SDL_PATH := /opt/local/
 CFLAGS += -I$(SDL_PATH)/include/SDL2
-LD_FLAGS += -L$(SDL_PATH)/lib -lSDL2main -lSDL2 -framework OpenGL -framework Cocoa
+LDFLAGS += -L$(SDL_PATH)/lib -lSDL2main -lSDL2 -lSDL2_image -framework OpenGL -framework Cocoa
 
 OBJS := $(patsubst %.cpp,%.o,$(wildcard *.cpp))
 
@@ -12,8 +13,7 @@ CC := g++
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(LD_FLAGS) $(OBJS) -o $@
-#`$(SDL_PATH)/bin/sdl2-config --cflags --libs`
+	$(CC) `$(SDL_PATH)/bin/sdl2-config --cflags --libs` $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@
 
 $(OBJS): %.o: %.cpp
 	$(CC) -c $(CFLAGS) $< -o $@

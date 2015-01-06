@@ -8,22 +8,37 @@
 
 #include "Game.h"
 
+#include <iostream>
+
+const int FPS = 60;
+const int DELAY_TIME = 1000.0f / FPS;
+
 // our Game object
-Game* g_game = 0;
 
 int main(int argc, char* argv[])
 {
-    g_game = new Game();
-    g_game->init("Chapter 1", 100, 100, 640, 480, 0);
+    Uint32 frameStart, frameTime;
     
-    while(g_game->running())
+    if (TheGame::Instance()->init("Chapter 1", 100, 100, 640, 480, 0) == false) {
+        std::cout << "Game init false!" << std::endl;
+    }
+        
+    while(TheGame::Instance()->running())
     {
-        g_game->handleEvents();
-        g_game->update();
-        g_game->render();
+        frameStart = SDL_GetTicks();
+        
+        TheGame::Instance()->handleEvents();
+        TheGame::Instance()->update();
+        TheGame::Instance()->render();
+        
+        frameTime = SDL_GetTicks() - frameStart;
+        if(frameTime< DELAY_TIME)
+        {
+            SDL_Delay((int)(DELAY_TIME - frameTime));
+        }
     }
     
-    g_game->clean();
+    TheGame::Instance()->clean();
     
     return 0;
 }
