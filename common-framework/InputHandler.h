@@ -88,9 +88,9 @@ private:
     const Uint8* m_keystates;
     
     // joystick specific
-    std::vector<std::pair<Vector2D*, Vector2D*>> m_joystickValues;
+    std::vector< std::pair<Vector2D*, Vector2D*> > m_joystickValues;
     std::vector<SDL_Joystick*> m_joysticks;
-    std::vector<std::vector<bool>> m_buttonStates;
+    std::vector< std::vector<bool> > m_buttonStates;
     bool m_bJoysticksInitialised;
     static const int m_joystickDeadZone = 10000;
     

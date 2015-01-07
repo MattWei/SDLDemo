@@ -4,7 +4,8 @@ TARGET := sdlDemo
 
 SDL_PATH := /opt/local/
 CFLAGS += -I$(SDL_PATH)/include/SDL2
-LDFLAGS += -L$(SDL_PATH)/lib -lSDL2main -lSDL2 -lSDL2_image -framework OpenGL -framework Cocoa
+LDFLAGS += -L$(SDL_PATH)/lib -lSDL2main -lSDL2 -lSDL2_image -ltinyxml \
+	-framework OpenGL -framework Cocoa
 
 OBJS := $(patsubst %.cpp,%.o,$(wildcard *.cpp))
 
