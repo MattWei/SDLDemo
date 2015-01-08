@@ -12,14 +12,15 @@
 #include "PauseState.h"
 #include "Game.h"
 #include "InputHandler.h"
-#include "LevelParser.h"
-#include "Level.h"
-#include "BulletHandler.h"
+//#include "LevelParser.h"
+//#include "Level.h"
+//#include "BulletHandler.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
+#if 0
     if(m_loadingComplete && !m_exiting)
     {
         if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
@@ -44,10 +45,12 @@ void PlayState::update()
             pLevel->update();
         }
     }
+#endif
 }
 
 void PlayState::render()
 {
+#if 0
     if(m_loadingComplete)
     {
         if(pLevel != 0)
@@ -62,10 +65,12 @@ void PlayState::render()
         
         TheBulletHandler::Instance()->drawBullets();
     }
+#endif
 }
 
 bool PlayState::onEnter()
 {
+#if 0
     TheGame::Instance()->setPlayerLives(3);
     
     LevelParser levelParser;
@@ -82,16 +87,19 @@ bool PlayState::onEnter()
     }
     
     std::cout << "entering PlayState\n";
+#endif
     return true;
 }
 
 bool PlayState::onExit()
 {
+#if 0
     m_exiting = true;
     
     TheInputHandler::Instance()->reset();
     TheBulletHandler::Instance()->clearBullets();
     
     std::cout << "exiting PlayState\n";
+#endif
     return true;
 }

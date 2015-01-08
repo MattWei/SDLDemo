@@ -7,23 +7,24 @@
 //
 
 #include "AnimatedGraphic.h"
+#include "sdl.h"
 
 using namespace std;
 
-AnimatedGraphic::AnimatedGraphic() : ShooterObject()
+AnimatedGraphic::AnimatedGraphic() : SDLGameObject()
 {
     
 }
 
 void AnimatedGraphic::load(std::unique_ptr<LoaderParams> const &pParams)
 {
-    ShooterObject::load(pParams);
+    SDLGameObject::load(pParams);
     m_animSpeed = pParams->getAnimSpeed();
 }
 
 void AnimatedGraphic::draw()
 {
-    ShooterObject::draw();
+    SDLGameObject::draw();
 }
 
 void AnimatedGraphic::update()
@@ -33,5 +34,5 @@ void AnimatedGraphic::update()
 
 void AnimatedGraphic::clean()
 {
-    ShooterObject::clean();
+    SDLGameObject::clean();
 }

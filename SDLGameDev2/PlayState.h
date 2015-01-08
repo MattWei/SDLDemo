@@ -10,8 +10,8 @@
 #define SDL_Game_Programming_Book_PlayState_h
 
 #include "GameState.h"
-#include "CollisionManager.h"
-#include "Level.h"
+//#include "CollisionManager.h"
+//#include "Level.h"
 #include <vector>
 
 class GameObject;
@@ -22,7 +22,7 @@ class PlayState : public GameState
 {
 public:
     
-    virtual ~PlayState() { delete pLevel; }
+    //virtual ~PlayState() { delete pLevel; }
     
     virtual void update();
     virtual void render();
@@ -36,11 +36,11 @@ private:
     
     static const std::string s_playID;
     
-    CollisionManager m_collisionManager;
+    //CollisionManager m_collisionManager;
     
     std::vector<GameObject*> m_gameObjects;
     
-    Level* pLevel;
+    //Level* pLevel;
 };
 
 

@@ -17,41 +17,20 @@
 class SDLGameObject : public GameObject
 {
 public:
-    SDLGameObject(const LoaderParams* pParams);
+    
+    virtual ~SDLGameObject() {}
+    
+    virtual void load(std::unique_ptr<LoaderParams> const &pParams);
     virtual void draw();
     virtual void update();
-    virtual void clean();
+    virtual void clean() {}
+    virtual void collision() {}
+
+    virtual std::string type() { return "SDLGameObject"; }
     
 protected:
-    int m_width;
-    int m_height;
-    int m_currentRow;
-    int m_currentFrame;
     
-    std::string m_textureID;
-    
-    Vector2D m_position; //位置
-    Vector2D m_velocity; //速度
-    Vector2D m_acceleration; //加速度
-};
-
-
-class Player : public SDLGameObject
-{
-public:
-    Player(const LoaderParams* pParams);
-    virtual void draw();
-    virtual void update();
-    virtual void clean();
-};
-// Enemy class
-class Enemy : public SDLGameObject
-{
-public:
-    Enemy(const LoaderParams* pParams);
-    virtual void draw();
-    virtual void update();
-    virtual void clean();
+    SDLGameObject();
 };
 
 #endif /* defined(____SDLGameObject__) */

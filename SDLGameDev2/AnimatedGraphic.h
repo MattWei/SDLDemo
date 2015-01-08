@@ -11,9 +11,9 @@
 
 #include <iostream>
 #include "GameObjectFactory.h"
-#include "ShooterObject.h"
+#include "SDLGameObject.h"
 
-class AnimatedGraphic : public ShooterObject
+class AnimatedGraphic : public SDLGameObject
 {
 public:
     

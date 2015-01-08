@@ -9,10 +9,10 @@
 #ifndef __SDL_Game_Programming_Book__MenuObject__
 #define __SDL_Game_Programming_Book__MenuObject__
 
-#include "ShooterObject.h"
+#include "SDLGameObject.h"
 #include "GameObjectFactory.h"
 
-class MenuButton : public ShooterObject
+class MenuButton : public SDLGameObject
 {
 public:
     
