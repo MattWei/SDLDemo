@@ -38,6 +38,8 @@ public:
     
     bool registerType(std::string typeID, BaseCreator* pCreator)
     {
+        std::cout << "register type: " << typeID << "\n";
+        
         std::map<std::string, BaseCreator*>::iterator it = m_creators.find(typeID);
         
         // if the type is already registered, do nothing

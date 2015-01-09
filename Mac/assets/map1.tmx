@@ -9,7 +9,6 @@
   <property name="enemy3" value="assets/enemy3.png"/>
   <property name="explosion" value="assets/explosion.png"/>
   <property name="largeexplosion" value="assets/largeexplosion.png"/>
-  <property name="loading" value="assets/loading.png"/>
   <property name="player" value="assets/heli.png"/>
   <property name="smallexplosion" value="assets/smallexplosion.png"/>
   <property name="turret" value="assets/turret.png"/>

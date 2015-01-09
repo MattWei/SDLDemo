@@ -12,17 +12,18 @@
 #include "PauseState.h"
 #include "Game.h"
 #include "InputHandler.h"
-//#include "LevelParser.h"
-//#include "Level.h"
+#include "LevelParser.h"
+#include "Level.h"
+#include "TextureManager.h"
 //#include "BulletHandler.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
-#if 0
     if(m_loadingComplete && !m_exiting)
     {
+#if 0
         if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
         {
             TheGame::Instance()->getStateMachine()->pushState(new PauseState());
@@ -39,38 +40,35 @@ void PlayState::update()
         {
             TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
         }
-        
+#endif
         if(pLevel != 0)
         {
             pLevel->update();
         }
     }
-#endif
 }
 
 void PlayState::render()
 {
-#if 0
     if(m_loadingComplete)
     {
         if(pLevel != 0)
         {
             pLevel->render();
         }
-        
+#if 0
         for(int i = 0; i < TheGame::Instance()->getPlayerLives(); i++)
         {
             TheTextureManager::Instance()->drawFrame("lives", i * 30, 0, 32, 30, 0, 0, TheGame::Instance()->getRenderer(), 0.0, 255);
         }
         
         TheBulletHandler::Instance()->drawBullets();
-    }
 #endif
+    }
 }
 
 bool PlayState::onEnter()
 {
-#if 0
     TheGame::Instance()->setPlayerLives(3);
     
     LevelParser levelParser;
@@ -87,19 +85,16 @@ bool PlayState::onEnter()
     }
     
     std::cout << "entering PlayState\n";
-#endif
     return true;
 }
 
 bool PlayState::onExit()
 {
-#if 0
     m_exiting = true;
-    
+#if 0
     TheInputHandler::Instance()->reset();
     TheBulletHandler::Instance()->clearBullets();
-    
-    std::cout << "exiting PlayState\n";
 #endif
+    std::cout << "exiting PlayState\n";
     return true;
 }

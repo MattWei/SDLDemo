@@ -27,9 +27,9 @@ int main(int argc, char* argv[])
     {
         frameStart = SDL_GetTicks();
         
-        TheGame::Instance()->handleEvents();
-        TheGame::Instance()->update();
-        TheGame::Instance()->render();
+        TheGame::Instance()->handleEvents(); //Handle input
+        TheGame::Instance()->update(); //Update the status
+        TheGame::Instance()->render(); //Draw
         
         frameTime = SDL_GetTicks() - frameStart;
         if(frameTime< DELAY_TIME)

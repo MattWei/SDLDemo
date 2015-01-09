@@ -11,7 +11,7 @@
 
 #include "GameState.h"
 //#include "CollisionManager.h"
-//#include "Level.h"
+#include "Level.h"
 #include <vector>
 
 class GameObject;
@@ -22,7 +22,7 @@ class PlayState : public GameState
 {
 public:
     
-    //virtual ~PlayState() { delete pLevel; }
+    virtual ~PlayState() { delete pLevel; }
     
     virtual void update();
     virtual void render();
@@ -40,7 +40,7 @@ private:
     
     std::vector<GameObject*> m_gameObjects;
     
-    //Level* pLevel;
+    Level* pLevel;
 };
 
 

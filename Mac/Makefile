@@ -3,12 +3,12 @@ TARGET := sdlDemo
 #SDL_PATH := /Users/weimj/sources/SDLLearning/SDLGameDemo/libSDL_Mac
 
 SDL_PATH := /opt/local/
-CFLAGS += -I$(SDL_PATH)/include/SDL2 -I../SDLGameDev2 -I../common-framework -I/opt/local/include/
-LDFLAGS += -L$(SDL_PATH)/lib -lSDL2main -lSDL2 -lSDL2_image -ltinyxml \
+CFLAGS += -I$(SDL_PATH)/include/SDL2 -I../AlienAttack -I../common-framework -I/opt/local/include/
+LDFLAGS += -L$(SDL_PATH)/lib -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -ltinyxml -lz \
 	-framework OpenGL -framework Cocoa
 
 OBJS := $(patsubst %.cpp,%.o,$(wildcard ../common-framework/*.cpp))
-OBJS += $(patsubst %.cpp,%.o,$(wildcard ../SDLGameDev2/*.cpp))
+OBJS += $(patsubst %.cpp,%.o,$(wildcard ../AlienAttack/*.cpp))
 
 CC := g++
 

@@ -1,25 +1,29 @@
 //
-//  game.cpp
-//  
-//
-//  Created by weimj on 14/12/30.
+//  Game.cpp
+//  SDL Game Programming Book
 //
 //
-
 #include "Game.h"
-
-#include <iostream>
-using namespace std;
-
-#include "LoaderParams.h"
-#include "SDLGameObject.h"
-#include "GameObjectFactory.h"
-
+#include "TextureManager.h"
 #include "InputHandler.h"
 #include "MainMenuState.h"
+#include "GameObjectFactory.h"
 #include "MenuButton.h"
+#include "AnimatedGraphic.h"
+#include "Player.h"
+#include "ScrollingBackground.h"
+#include "SoundManager.h"
+#include "RoofTurret.h"
+#include "ShotGlider.h"
+#include "Eskeletor.h"
+#include "Level1Boss.h"
+#include "GameOverState.h"
+#include <iostream>
+
+using namespace std;
 
 Game* Game::s_pInstance = 0;
+
 
 Game::Game():
 m_pWindow(0),
@@ -32,11 +36,11 @@ m_bLevelComplete(false),
 m_bChangingState(false)
 {
     // add some level files to an array
-    //m_levelFiles.push_back("assets/map1.tmx");
-    //m_levelFiles.push_back("assets/map2.tmx");
+    m_levelFiles.push_back("assets/map1.tmx");
+    m_levelFiles.push_back("assets/map2.tmx");
     
     // start at this level
-    //m_currentLevel = 1;
+    m_currentLevel = 1;
 }
 
 Game::~Game()
@@ -45,6 +49,7 @@ Game::~Game()
     m_pRenderer= 0;
     m_pWindow = 0;
 }
+
 
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
@@ -93,13 +98,28 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         cout << "SDL init fail\n";
         return false; // SDL init fail
     }
-
+    
+    // add some sound effects - TODO move to better place
+    TheSoundManager::Instance()->load("assets/DST_ElectroRock.ogg", "music1", SOUND_MUSIC);
+    TheSoundManager::Instance()->load("assets/boom.wav", "explode", SOUND_SFX);
+    TheSoundManager::Instance()->load("assets/phaser.wav", "shoot", SOUND_SFX);
+    
+    TheSoundManager::Instance()->playMusic("music1", -1);
     
     //TheInputHandler::Instance()->initialiseJoysticks();
     
     // register the types for the game
     TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
-    //TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
+    TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
+    TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
+                                                  //ScrollingBackground ScrollingBackground
+    TheGameObjectFactory::Instance()->registerType("ScrollingBackground", new ScrollingBackgroundCreator());
+    TheGameObjectFactory::Instance()->registerType("Turret", new TurretCreator());
+    TheGameObjectFactory::Instance()->registerType("Glider", new GliderCreator());
+    TheGameObjectFactory::Instance()->registerType("ShotGlider", new ShotGliderCreator());
+    TheGameObjectFactory::Instance()->registerType("RoofTurret", new RoofTurretCreator());
+    TheGameObjectFactory::Instance()->registerType("Eskeletor", new EskeletorCreator());
+    TheGameObjectFactory::Instance()->registerType("Level1Boss", new Level1BossCreator());
     
     // start the menu state
     m_pGameStateMachine = new GameStateMachine();
@@ -109,45 +129,53 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     return true;
 }
 
+void Game::setCurrentLevel(int currentLevel)
+{
+    m_currentLevel = currentLevel;
+    m_pGameStateMachine->changeState(new GameOverState());
+    m_bLevelComplete = false;
+}
 
 void Game::render()
 {
     SDL_RenderClear(m_pRenderer);
     
-    
-    m_pGameStateMachine->render();
-    
-    
+
+		m_pGameStateMachine->render();
+
+
     SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update()
 {
-	m_pGameStateMachine->update();
+	
+		m_pGameStateMachine->update();
+
 }
 
 void Game::handleEvents()
 {
-	TheInputHandler::Instance()->update();
+
+		TheInputHandler::Instance()->update();
+
 }
 
 void Game::clean()
 {
-    std::cout << "cleaning game\n";
+    cout << "cleaning game\n";
     
     TheInputHandler::Instance()->clean();
     
     m_pGameStateMachine->clean();
     
-    delete m_pGameStateMachine;
     m_pGameStateMachine = 0;
+    delete m_pGameStateMachine;
     
-    if (m_pWindow)
-    	SDL_DestroyWindow(m_pWindow);
+    TheTextureManager::Instance()->clearTextureMap();
     
-    if (m_pRenderer)
-    	SDL_DestroyRenderer(m_pRenderer);
-    
+    SDL_DestroyWindow(m_pWindow);
+    SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();
 }
 
